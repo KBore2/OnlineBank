@@ -1,0 +1,12 @@
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\bin\Debug\net6.0\OnlineBankMVC.Domain.deps.json
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\bin\Debug\net6.0\OnlineBankMVC.Domain.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\bin\Debug\net6.0\ref\OnlineBankMVC.Domain.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\bin\Debug\net6.0\OnlineBankMVC.Domain.pdb
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.csproj.AssemblyReference.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.AssemblyInfoInputs.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.AssemblyInfo.cs
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.csproj.CoreCompileInputs.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\ref\OnlineBankMVC.Domain.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Domain\obj\Debug\net6.0\OnlineBankMVC.Domain.pdb

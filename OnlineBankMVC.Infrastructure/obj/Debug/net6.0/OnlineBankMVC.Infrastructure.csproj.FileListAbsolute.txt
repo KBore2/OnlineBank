@@ -1,0 +1,17 @@
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Infrastructure.deps.json
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Infrastructure.runtimeconfig.json
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Infrastructure.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\ref\OnlineBankMVC.Infrastructure.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Infrastructure.pdb
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Domain.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\bin\Debug\net6.0\OnlineBankMVC.Domain.pdb
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.AssemblyInfo.cs
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.csproj.CopyComplete
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\ref\OnlineBankMVC.Infrastructure.dll
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.pdb
+C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC.Infrastructure\obj\Debug\net6.0\OnlineBankMVC.Infrastructure.genruntimeconfig.cache

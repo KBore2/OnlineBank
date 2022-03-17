@@ -1,0 +1,66 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "840cd76a-38cb-4bd5-b960-50abd09bcf71": {
+      "ProjectGuid": "840cd76a-38cb-4bd5-b960-50abd09bcf71",
+      "DisplayName": "OnlineBankMVC",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "e0b017c3-7da0-4c2f-8b05-729da1353d4c": {
+      "ProjectGuid": "e0b017c3-7da0-4c2f-8b05-729da1353d4c",
+      "DisplayName": "OnlineBankMVC.Command",
+      "ColorIndex": 1
+    },
+    "ddbdc6d0-695b-44e7-9c6f-b28cb39e032a": {
+      "ProjectGuid": "ddbdc6d0-695b-44e7-9c6f-b28cb39e032a",
+      "DisplayName": "OnlineBankMVC.Domain",
+      "ColorIndex": 2
+    },
+    "e95ce566-215e-4d9a-80ba-e53ac37cdf6a": {
+      "ProjectGuid": "e95ce566-215e-4d9a-80ba-e53ac37cdf6a",
+      "DisplayName": "OnlineBankMVC.Handler",
+      "ColorIndex": 3
+    },
+    "bc9e803c-b8f2-4440-8f76-580769ae9c05": {
+      "ProjectGuid": "bc9e803c-b8f2-4440-8f76-580769ae9c05",
+      "DisplayName": "OnlineBankMVC.Infrastructure",
+      "ColorIndex": 4
+    },
+    "00c2d1a2-a4f8-4c68-870d-76d7a1de39c3": {
+      "ProjectGuid": "00c2d1a2-a4f8-4c68-870d-76d7a1de39c3",
+      "DisplayName": "OnlineBankMVC.Command",
+      "ColorIndex": 5
+    },
+    "924cf082-cbb7-48df-8d3c-3d367f8e2b50": {
+      "ProjectGuid": "924cf082-cbb7-48df-8d3c-3d367f8e2b50",
+      "DisplayName": "OnlineBankMVC.Command",
+      "ColorIndex": 6
+    },
+    "30f6cdf8-74ce-44da-8816-0389fad6e19b": {
+      "ProjectGuid": "30f6cdf8-74ce-44da-8816-0389fad6e19b",
+      "DisplayName": "OnlineBankMVC.Domain",
+      "ColorIndex": 7
+    },
+    "a7f3a182-641a-477d-8317-827b645394a0": {
+      "ProjectGuid": "a7f3a182-641a-477d-8317-827b645394a0",
+      "DisplayName": "OnlineBankMVC.Query",
+      "ColorIndex": 8
+    },
+    "d6ecb1f4-36e7-4220-9dc1-1ddde3f73194": {
+      "ProjectGuid": "d6ecb1f4-36e7-4220-9dc1-1ddde3f73194",
+      "DisplayName": "OnlineBankMVC.Infrastructure",
+      "ColorIndex": 9
+    },
+    "4078812e-205f-49d7-8aa1-135c7a9c062a": {
+      "ProjectGuid": "4078812e-205f-49d7-8aa1-135c7a9c062a",
+      "DisplayName": "OnlineBankMVC.API",
+      "ColorIndex": 10
+    }
+  },
+  "NextColorIndex": 11
+}
