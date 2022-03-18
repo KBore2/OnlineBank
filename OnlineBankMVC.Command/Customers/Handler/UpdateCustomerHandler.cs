@@ -17,7 +17,7 @@ namespace OnlineBankMVC.Command.Customers.Handler
         public async Task<Customer> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             var response = await repository.Update(request.customer);
-            return response == null ? throw new Exception("Customer not found") : response;
+            return response ?? null;
         }
     }
 }

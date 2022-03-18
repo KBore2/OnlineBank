@@ -22,7 +22,7 @@ namespace OnlineBankMVC.Query.Customers.Handler
         public async Task<Customer> Handle(GetCustomerByIDQuery request, CancellationToken cancellationToken)
         {
             var response = await repoistory.GetAsync(c => c.CustomerId == request.customer.CustomerId);
-            return response == null ? throw new Exception("Customer not found") : response;
+            return response ?? null;
         }
     }
 }

@@ -23,12 +23,13 @@ namespace OnlineBankMVC.Domain.IRepositories
         public async Task<List<TEntity>> AddAsync(TEntity entity)
         {
             await dbset.AddAsync(entity);
+            context.SaveChanges();
             return await dbset.ToListAsync();
         }
 
         public async Task<List<TEntity>?> DeleteAsync(Expression<Func<TEntity, bool>> expression)
         {
-            var respone = await dbset.Where(expression).FirstOrDefaultAsync();
+            var respone = await dbset.Where(expression).FirstAsync();
             if (respone == null)
                 return null;
             

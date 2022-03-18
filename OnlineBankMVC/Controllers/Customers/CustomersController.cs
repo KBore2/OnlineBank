@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnlineBankMVC.Command.Customers.Command;
 using OnlineBankMVC.Domain.Models;
 using OnlineBankMVC.Infrastructure.Data;
 using OnlineBankMVC.Query.Customers.Query;
@@ -27,26 +28,15 @@ namespace OnlineBankMVC.Controllers.AddCustomerControllerr
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Customers.ToListAsync());
             return View(await mediator.Send(new GetAllCustomersQuery()));
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
+            var customer = await mediator.Send(new GetCustomerByIDQuery(id));
+            return customer == null? NotFound(): View(customer);
         }
 
         // GET: Customers/Create
@@ -60,31 +50,21 @@ namespace OnlineBankMVC.Controllers.AddCustomerControllerr
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,FirstName,LastName")] Customer customer)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                await mediator.Send(new CreateCustomerCommand(customer));
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
 
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return View(customer);
+            var customer = await mediator.Send(new GetCustomerByIDQuery(id));
+            return customer == null ? NotFound() : View(customer);
         }
 
         // POST: Customers/Edit/5
@@ -92,52 +72,22 @@ namespace OnlineBankMVC.Controllers.AddCustomerControllerr
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FirstName,LastName")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName")] Customer customer)
         {
-            if (id != customer.CustomerId)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.CustomerId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                customer.CustomerId = id;
+                await mediator.Send(new UpdateCustomerCommand(customer));
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
 
         // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
+            var customer = await mediator.Send(new GetCustomerByIDQuery(id));
+            return customer == null ? NotFound() : View(customer);
         }
 
         // POST: Customers/Delete/5
@@ -145,9 +95,8 @@ namespace OnlineBankMVC.Controllers.AddCustomerControllerr
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            
+            await mediator.Send(new DeleteCustomerCommand(id));
             return RedirectToAction(nameof(Index));
         }
 

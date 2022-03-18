@@ -26,7 +26,7 @@ namespace OnlineBankMVC.Infrastructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("server=.;database=OnlineBankDB;trusted_connection=true");
             }
         }
@@ -38,8 +38,6 @@ namespace OnlineBankMVC.Infrastructure.Data
                 entity.HasKey(e => e.AccountNumber);
 
                 entity.ToTable("Account");
-
-                entity.Property(e => e.AccountNumber).ValueGeneratedNever();
 
                 entity.Property(e => e.BankName).HasMaxLength(50);
 
@@ -58,8 +56,6 @@ namespace OnlineBankMVC.Infrastructure.Data
 
                 entity.ToTable("Card");
 
-                entity.Property(e => e.CardNumber).ValueGeneratedNever();
-
                 entity.Property(e => e.Ccv).HasColumnName("CCV");
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
@@ -77,9 +73,7 @@ namespace OnlineBankMVC.Infrastructure.Data
             {
                 entity.ToTable("Customer");
 
-                entity.Property(e => e.CustomerId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
@@ -89,8 +83,6 @@ namespace OnlineBankMVC.Infrastructure.Data
             modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.HasKey(e => e.TransactionNumber);
-
-                entity.Property(e => e.TransactionNumber).ValueGeneratedNever();
 
                 entity.Property(e => e.Timestamp)
                     .IsRowVersion()
