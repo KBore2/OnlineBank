@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace OnlineBankMVC.Query.Transactions.Handler
 {
-    internal class GetTransactionByIDHandler: IRequestHandler<GetTransactionByIDQuery,Transaction>
+    internal class GetTransactionByAccountIDHandler: IRequestHandler<GetTransactionByIDQuery,Transaction>
     {
         private readonly TransactionRepository repoistory;
 
-        public GetTransactionByIDHandler(TransactionRepository repoistory)
+        public GetTransactionByAccountIDHandler(TransactionRepository repoistory)
         {
             this.repoistory = repoistory;
         }
 
         public async Task<Transaction> Handle(GetTransactionByIDQuery request, CancellationToken cancellationToken)
         {
-            var response = await repoistory.GetAsync(c => c.TransactionNumber == request.transaction.TransactionNumber && c.AccountNumber == request.transaction.AccountNumber);
+            var response = await repoistory.GetAsync(c => c.AccountNumber == request.transaction.AccountNumber);
             return response == null ? throw new Exception("Transaction not found") : response;
         }
     }

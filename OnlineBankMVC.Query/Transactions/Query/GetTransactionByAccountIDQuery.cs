@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace OnlineBankMVC.Query.Transactions.Query
 {
-    public class GetTransactionByIDQuery : IRequest<Transaction>
+    public class GetTransactionByAccountIDQuery : IRequest<Transaction>
     {
         public Transaction transaction { get; set; } = null!;
 
-        public GetTransactionByIDQuery(int accountNumber,int id)
+        public GetTransactionByAccountIDQuery(int id)
         {
             transaction = new Transaction();
-            transaction.AccountNumber = accountNumber;
-            transaction.TransactionNumber = id;
+            transaction.AccountNumber = id;
         }
     }
 }
