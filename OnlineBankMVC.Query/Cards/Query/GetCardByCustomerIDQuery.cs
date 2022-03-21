@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace OnlineBankMVC.Query.Cards.Query
 {
-    public class GetCardByIDQuery : IRequest<Card>
+    public class GetCardByCustomerIDQuery : IRequest<List<Card>>
     {
         public Card card { get; set; } = null!;
 
-        public GetCardByIDQuery(int customerID, int cardNumber)
+        public GetCardByCustomerIDQuery(int id)
         {
             card = new Card();
-            card.CustomerId = customerID;
-            card.CardNumber = cardNumber;
+            card.CustomerId = id;
         }
     }
 }

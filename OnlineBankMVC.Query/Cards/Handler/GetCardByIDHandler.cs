@@ -21,7 +21,7 @@ namespace OnlineBankMVC.Query.Cards.Handler
 
         public async Task<Card> Handle(GetCardByIDQuery request, CancellationToken cancellationToken)
         {
-            var response = await repoistory.GetAsync(c => c.CardNumber == request.card.CardNumber);
+            var response = await repoistory.GetAsync(c => c.CardNumber == request.card.CardNumber && c.CustomerId == request.card.CustomerId);
             return response == null ? throw new Exception("Card not found") : response;
         }
     }

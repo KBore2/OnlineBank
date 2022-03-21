@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,6 +20,8 @@ namespace OnlineBankMVC.Domain.IRepositories
         public Task<List<TEntity>?> DeleteAsync(Expression<Func<TEntity, bool>> expression);
 
         public Task<List<TEntity>> ListAsync();
+
+        public Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> expression);
 
     }
 }

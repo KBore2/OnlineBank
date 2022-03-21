@@ -3,53 +3,54 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnlineBankMVC.Command.Cards.Command;
 using OnlineBankMVC.Domain.Models;
 using OnlineBankMVC.Infrastructure.Data;
+using OnlineBankMVC.Query.Cards.Query;
 
-namespace OnlineBankMVC.Controllers.Cards
+namespace OnlineBankMVC.Controllers.AddCardControllerr
 {
     public class CardsController : Controller
     {
         private readonly OnlineBankDBContext _context;
+        private readonly IMediator mediator;
 
-        public CardsController(OnlineBankDBContext context)
+        public CardsController(IMediator mediator, OnlineBankDBContext _context)
         {
-            _context = context;
-        }
+            this.mediator = mediator;
+            this._context = _context;
+    }
 
         // GET: Cards
         public async Task<IActionResult> Index()
         {
-            var onlineBankDBContext = _context.Cards.Include(c => c.Customer);
-            return View(await onlineBankDBContext.ToListAsync());
+            return View(await mediator.Send(new GetAllCardsQuery()));
         }
 
-        // GET: Cards/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Cards/2
+        [Route("Cards/{id}")]
+        public async Task<IActionResult> CardsByCustomer(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return View(await mediator.Send(new GetCardByCustomerIDQuery(id)));
+        }
 
-            var card = await _context.Cards
-                .Include(c => c.Customer)
-                .FirstOrDefaultAsync(m => m.CardNumber == id);
-            if (card == null)
-            {
-                return NotFound();
-            }
+        // GET: Cards/2/Details/2
+        [Route("Cards/{customerId}/Details/{cardNumber}")]
+        public async Task<IActionResult> Details(int customerId,int cardNumber)
+        {
 
-            return View(card);
+            var Card = await mediator.Send(new GetCardByIDQuery(customerId, cardNumber));
+            return Card == null? NotFound(): View(Card);
         }
 
         // GET: Cards/Create
+        [Route("Cards/{customerId}/Create")]
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName");
             return View();
         }
 
@@ -57,99 +58,64 @@ namespace OnlineBankMVC.Controllers.Cards
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Cards/{customerId}/Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CardNumber,ExpiryDate,Ccv,CustomerId")] Card card)
+        public async Task<IActionResult> Create(int customerId,[Bind("ExpiryDate,Ccv")] Card Card)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(card);
-                await _context.SaveChangesAsync();
+            /*if (ModelState.IsValid)
+            {*/
+                Card.CustomerId = customerId;
+                await mediator.Send(new CreateCardCommand(Card));
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", card.CustomerId);
-            return View(card);
+            //}
+            //return View(Card);
         }
 
-        // GET: Cards/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Cards/2/Edit/5
+        [Route("Cards/{customerId}/Edit/{cardNumber}")]
+        public async Task<IActionResult> Edit(int customerId, int cardNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var card = await _context.Cards.FindAsync(id);
-            if (card == null)
-            {
-                return NotFound();
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", card.CustomerId);
-            return View(card);
+            var Card = await mediator.Send(new GetCardByIDQuery(customerId, cardNumber));
+            return Card == null ? NotFound() : View(Card);
         }
 
         // POST: Cards/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Cards/{customerId}/Edit/{cardNumber}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CardNumber,ExpiryDate,Ccv,CustomerId")] Card card)
+        public async Task<IActionResult> Edit(int customerId,int cardNumber, [Bind("ExpiryDate,Ccv")] Card Card)
         {
-            if (id != card.CardNumber)
-            {
-                return NotFound();
-            }
-
+            ModelState.Remove("Customer");
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(card);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CardExists(card.CardNumber))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
+                Card.CardNumber = cardNumber;
+                Card.CustomerId = customerId;
+                await mediator.Send(new UpdateCardCommand(Card));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", card.CustomerId);
-            return View(card);
+            var errors = ModelState.Where(x => x.Value.Errors.Any())
+                .Select(x => new { x.Key, x.Value.Errors });
+            return View(Card);
         }
 
-        // GET: Cards/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Cards/2/Delete/5
+        [Route("Cards/{customerId}/Delete/{cardNumber}")]
+        public async Task<IActionResult> Delete(int customerId, int cardNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var card = await _context.Cards
-                .Include(c => c.Customer)
-                .FirstOrDefaultAsync(m => m.CardNumber == id);
-            if (card == null)
-            {
-                return NotFound();
-            }
-
-            return View(card);
+            var Card = await mediator.Send(new GetCardByIDQuery(customerId,cardNumber));
+            return Card == null ? NotFound() : View(Card);
         }
 
         // POST: Cards/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Route("Cards/{customerId}/Delete/{cardNumber}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int customerId, int cardNumber)
         {
-            var card = await _context.Cards.FindAsync(id);
-            _context.Cards.Remove(card);
-            await _context.SaveChangesAsync();
+            await mediator.Send(new DeleteCardCommand(cardNumber));
             return RedirectToAction(nameof(Index));
         }
 

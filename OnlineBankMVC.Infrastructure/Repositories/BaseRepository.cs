@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OnlineBankMVC.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -40,7 +42,7 @@ namespace OnlineBankMVC.Domain.IRepositories
         }
 
         public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression)
-        {
+        { 
             var respone = await dbset.Where(expression).FirstOrDefaultAsync();
             return respone == null ? null : respone;
         }
@@ -48,6 +50,12 @@ namespace OnlineBankMVC.Domain.IRepositories
         public async Task<List<TEntity>> ListAsync()
         {
             var response = await dbset.ToListAsync();
+            return response;
+        }
+
+        public async Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            var response = await dbset.Where(expression).ToListAsync();
             return response;
         }
 

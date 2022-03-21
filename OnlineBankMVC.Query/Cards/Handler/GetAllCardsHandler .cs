@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore.Metadata;
 using OnlineBankMVC.Domain.Models;
 using OnlineBankMVC.Infrastructure.Repositories;
 using OnlineBankMVC.Query.Cards.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 

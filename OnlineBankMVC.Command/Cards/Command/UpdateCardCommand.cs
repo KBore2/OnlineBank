@@ -7,7 +7,7 @@ namespace OnlineBankMVC.Command.Cards.Command
     {
         public Card card { get; set; } = null!;
 
-        public UpdateCardCommand(Card Card)
+        public UpdateCardCommand(Card card)
         {
             this.card = card;
         }
