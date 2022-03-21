@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<OnlineBankMVC.Domain.Models.Account>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "AccountsByCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Customer Accounts</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.BankName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AccountNumber">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AccountNumber">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AccountNumber">Delete</a>
+                <a asp-action="Edit" asp-route-customerId="@item.CustomerId" asp-route-AccountNumber="@item.AccountNumber">Edit</a> |
+                <a asp-action="Details" asp-route-customerId="@item.CustomerId" asp-route-AccountNumber="@item.AccountNumber">Details</a> |
+                <a asp-action="Delete" asp-route-customerId="@item.CustomerId" asp-route-AccountNumber="@item.AccountNumber">Delete</a>
             </td>
         </tr>
 }

@@ -3,53 +3,52 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnlineBankMVC.Command.Accounts.Command;
 using OnlineBankMVC.Domain.Models;
 using OnlineBankMVC.Infrastructure.Data;
+using OnlineBankMVC.Query.Accounts.Query;
 
-namespace OnlineBankMVC.Controllers.Accounts
+namespace OnlineBankMVC.Controllers.AddAccountControllerr
 {
     public class AccountsController : Controller
     {
-        private readonly OnlineBankDBContext _context;
+        private readonly IMediator mediator;
 
-        public AccountsController(OnlineBankDBContext context)
+        public AccountsController(IMediator mediator)
         {
-            _context = context;
+            this.mediator = mediator;
         }
 
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            var onlineBankDBContext = _context.Accounts.Include(a => a.Customer);
-            return View(await onlineBankDBContext.ToListAsync());
+            return View(await mediator.Send(new GetAllAccountsQuery()));
         }
 
-        // GET: Accounts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Accounts/2
+        [Route("Accounts/{id}")]
+        public async Task<IActionResult> AccountsByCustomer(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return View(await mediator.Send(new GetAccountByCustomerIDQuery(id)));
+        }
 
-            var account = await _context.Accounts
-                .Include(a => a.Customer)
-                .FirstOrDefaultAsync(m => m.AccountNumber == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+        // GET: Accounts/2/Details/2
+        [Route("Accounts/{customerId}/Details/{AccountNumber}")]
+        public async Task<IActionResult> Details(int customerId, int AccountNumber)
+        {
 
-            return View(account);
+            var Account = await mediator.Send(new GetAccountByIDQuery(customerId, AccountNumber));
+            return Account == null ? NotFound() : View(Account);
         }
 
         // GET: Accounts/Create
+        [Route("Accounts/{customerId}/Create")]
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName");
             return View();
         }
 
@@ -57,105 +56,65 @@ namespace OnlineBankMVC.Controllers.Accounts
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Accounts/{customerId}/Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountNumber,Balance,BankName,CustomerId")] Account account)
+        public async Task<IActionResult> Create(int customerId, [Bind("Balance,BankName")] Account Account)
         {
+            ModelState.Remove("Customer");
             if (ModelState.IsValid)
             {
-                _context.Add(account);
-                await _context.SaveChangesAsync();
+                Account.CustomerId = customerId;
+                await mediator.Send(new CreateAccountCommand(Account));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", account.CustomerId);
-            return View(account);
+            return View(Account);
         }
 
-        // GET: Accounts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Accounts/2/Edit/5
+        [Route("Accounts/{customerId}/Edit/{AccountNumber}")]
+        public async Task<IActionResult> Edit(int customerId, int AccountNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", account.CustomerId);
-            return View(account);
+            var Account = await mediator.Send(new GetAccountByIDQuery(customerId, AccountNumber));
+            return Account == null ? NotFound() : View(Account);
         }
 
         // POST: Accounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Accounts/{customerId}/Edit/{AccountNumber}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AccountNumber,Balance,BankName,CustomerId")] Account account)
+        public async Task<IActionResult> Edit(int customerId, int AccountNumber, [Bind("Balance,BankName")] Account Account)
         {
-            if (id != account.AccountNumber)
-            {
-                return NotFound();
-            }
-
+            ModelState.Remove("Customer");
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(account);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AccountExists(account.AccountNumber))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                Account.AccountNumber = AccountNumber;
+                Account.CustomerId = customerId;
+                await mediator.Send(new UpdateAccountCommand(Account));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", account.CustomerId);
-            return View(account);
+
+            return View(Account);
         }
 
-        // GET: Accounts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Accounts/2/Delete/5
+        [Route("Accounts/{customerId}/Delete/{AccountNumber}")]
+        public async Task<IActionResult> Delete(int customerId, int AccountNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var account = await _context.Accounts
-                .Include(a => a.Customer)
-                .FirstOrDefaultAsync(m => m.AccountNumber == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            return View(account);
+            var Account = await mediator.Send(new GetAccountByIDQuery(customerId, AccountNumber));
+            return Account == null ? NotFound() : View(Account);
         }
 
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Route("Accounts/{customerId}/Delete/{AccountNumber}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int customerId, int AccountNumber)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            _context.Accounts.Remove(account);
-            await _context.SaveChangesAsync();
+            await mediator.Send(new DeleteAccountCommand(AccountNumber));
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AccountExists(int id)
-        {
-            return _context.Accounts.Any(e => e.AccountNumber == id);
         }
     }
 }

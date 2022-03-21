@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\KBore\source\repos\OnlineBankMVC\OnlineBankMVC
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/KBore/source/repos/OnlineBankMVC/OnlineBankMVC/Views/Accounts/AccountsByCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQWNjb3VudHNCeUN1c3RvbWVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/KBore/source/repos/OnlineBankMVC/OnlineBankMVC/Views/Accounts/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

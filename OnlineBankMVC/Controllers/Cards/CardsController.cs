@@ -16,14 +16,12 @@ namespace OnlineBankMVC.Controllers.AddCardControllerr
 {
     public class CardsController : Controller
     {
-        private readonly OnlineBankDBContext _context;
         private readonly IMediator mediator;
 
-        public CardsController(IMediator mediator, OnlineBankDBContext _context)
+        public CardsController(IMediator mediator)
         {
             this.mediator = mediator;
-            this._context = _context;
-    }
+        }
 
         // GET: Cards
         public async Task<IActionResult> Index()
@@ -62,13 +60,14 @@ namespace OnlineBankMVC.Controllers.AddCardControllerr
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int customerId,[Bind("ExpiryDate,Ccv")] Card Card)
         {
-            /*if (ModelState.IsValid)
-            {*/
+            ModelState.Remove("Customer");
+            if (ModelState.IsValid)
+            {
                 Card.CustomerId = customerId;
                 await mediator.Send(new CreateCardCommand(Card));
                 return RedirectToAction(nameof(Index));
-            //}
-            //return View(Card);
+            }
+            return View(Card);
         }
 
         // GET: Cards/2/Edit/5
@@ -96,8 +95,7 @@ namespace OnlineBankMVC.Controllers.AddCardControllerr
                 await mediator.Send(new UpdateCardCommand(Card));
                 return RedirectToAction(nameof(Index));
             }
-            var errors = ModelState.Where(x => x.Value.Errors.Any())
-                .Select(x => new { x.Key, x.Value.Errors });
+            
             return View(Card);
         }
 
@@ -117,11 +115,6 @@ namespace OnlineBankMVC.Controllers.AddCardControllerr
         {
             await mediator.Send(new DeleteCardCommand(cardNumber));
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CardExists(int id)
-        {
-            return _context.Cards.Any(e => e.CardNumber == id);
         }
     }
 }

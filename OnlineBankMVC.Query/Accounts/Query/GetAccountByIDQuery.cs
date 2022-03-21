@@ -12,10 +12,11 @@ namespace OnlineBankMVC.Query.Accounts.Query
     {
         public Account account { get; set; } = null!;
 
-        public GetAccountByIDQuery(int id)
+        public GetAccountByIDQuery(int customerId, int accountNumber)
         {
             account = new Account();
-            account.AccountNumber = id;
+            account.CustomerId = customerId;
+            account.AccountNumber = accountNumber;
         }
     }
 }
