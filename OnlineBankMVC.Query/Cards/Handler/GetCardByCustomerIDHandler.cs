@@ -22,7 +22,7 @@ namespace OnlineBankMVC.Query.Cards.Handler
 
         public async Task<List<Card>> Handle(GetCardByCustomerIDQuery request, CancellationToken cancellationToken)
         {
-            var response = await repoistory.ListAsync(c => c.CustomerId == request.card.CustomerId);
+            var response = await repoistory.GetByCustomerID(c => c.CustomerId == request.card.CustomerId);
             return response ?? null;
         }
     }

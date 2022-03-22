@@ -33,7 +33,10 @@ namespace OnlineBankMVC.Controllers.AddCardControllerr
         [Route("Cards/{id}")]
         public async Task<IActionResult> CardsByCustomer(int id)
         {
-            return View(await mediator.Send(new GetCardByCustomerIDQuery(id)));
+            //return View(await mediator.Send(new GetCardByCustomerIDQuery(id)));
+            TempData["customerId"] = id;
+            var card = await mediator.Send(new GetCardByCustomerIDQuery(id));
+            return View(card);
         }
 
         // GET: Cards/2/Details/2

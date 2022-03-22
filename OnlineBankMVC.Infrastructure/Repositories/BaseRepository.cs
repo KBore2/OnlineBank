@@ -13,8 +13,8 @@ namespace OnlineBankMVC.Domain.IRepositories
 {
     public class BaseRepository<TEntity> : IAsyncRepository<TEntity> where TEntity : class
     {
-        private readonly DbSet<TEntity> dbset;
-        private readonly OnlineBankDBContext context;
+        protected readonly DbSet<TEntity> dbset;
+        protected readonly OnlineBankDBContext context;
         public BaseRepository(OnlineBankDBContext context)
         {
             this.context = context;
